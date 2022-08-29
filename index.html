@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+    </script>
+    <style>
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            display: none;
+            text-align: center;
+        }
+
+        .btn,
+        .btn1 {
+            border-radius: 99%;
+            background-color: skyblue;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            width: 150px;
+            height: 150px;
+            border: none;
+        }
+
+        .photo {
+            width: 360px;
+        }
+
+        .address {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="btn" onclick="choose()">今天吃什麼</button>
+        <div class="box">
+            <div class="name"></div>
+            <div>
+                <a href=""></a>
+            </div>
+            <img class="photo"></img>
+            <div class="address"></div>
+            <button class="btn1" onclick="retry()">再選一次</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //運動事件監聽
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', deviceMotionHandler);
+        }
+
+        //獲取加速度資訊
+        //通過監聽上一步獲取到的x, y, z 值在一定時間範圍內的變化率，進行裝置是否有進行晃動的判斷。
+        //而為了防止正常移動的誤判，需要給該變化率設定一個合適的臨界值。
+        var SHAKE_THRESHOLD = 50;
+        var last_update = 0;
+        var x, y, z, last_x = 0,
+            last_y = 0,
+            last_z = 0;
+
+        function deviceMotionHandler(eventData) {            
+            var acceleration = eventData.accelerationIncludingGravity;
+            var curTime = new Date().getTime();
+            
+            if ((curTime - last_update) > 10) {
+                var diffTime = curTime - last_update;
+                last_update = curTime;
+                x = acceleration.x;
+                y = acceleration.y;
+                z = acceleration.z;
+                var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+                alert(speed)            
+                if (speed > SHAKE_THRESHOLD) {
+                    //vibration(); // Do something
+                    alert('34567')
+                    choose();
+                }                
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        }
+
+        function vibration() {
+            navigator.vibrate = navigator.vibrate ||
+                navigator.webkitVibrate ||
+                navigator.mozVibrate ||
+                navigator.msVibrate;
+
+            if (navigator.vibrate) {
+                // 支援
+                alert("支援裝置震動！");
+            }
+            //中括號裡面的值標示[震動時間，停止時間，震動時間，停止時間………..]。沒有錯就是這種規律，簡單明瞭
+            navigator.vibrate([500, 300, 400, 300]);
+        }
+
+        let menu = [{
+                name: 'KT姊的義大利麵',
+                web: 'https://fanxin2973.pixnet.net/blog/post/29502046',
+                photo: 'https://pic.pimg.tw/fanxin2973/1612869445-1810489740-g_n.jpg',
+                address: '台北市中正區重慶南路一段63號'
+            },
+            {
+                name: '拉雅漢堡',
+                web: 'https://www.laya.com.tw/product/Combo/',
+                photo: 'https://www.laya.com.tw/upload/catalog_m_b/twL_catalog_m_22A28_dvgjd3j8bj.jpg',
+                address: '台北市中正區延平南路57號'
+            },
+            {
+                name: '良品牛肉麵',
+                web: 'https://candicecity.com/73310/',
+                photo: 'https://candicecity.com/wp-content/uploads/2021/04/DSC08233.jpg',
+                address: '台北市中正區開封街一段10號'
+            },
+            {
+                name: '慶三號',
+                web: 'http://qingsan.com.tw/',
+                photo: 'http://qingsan.com.tw/admin/img/2.png',
+                address: '台北市中正區延平南路19號'
+            },
+            {
+                name: '一級排骨',
+                web: 'https://aniseblog.tw/199594',
+                photo: 'https://aniseblog.tw/wp-content/uploads/2019/03/1551531160-43ef04f75fd3f68cc5c9d90f4b70e92a.jpg',
+                address: '台北市萬華區成都路27巷11號'
+            },
+            {
+                name: 'Cynthia 的魷魚羹',
+                web: '',
+                photo: '',
+                address: '武昌街一段'
+            }
+        ]
+        const photo = document.querySelector('.photo');
+        const address = document.querySelector('.address');
+        const box = document.querySelector('.box')
+        const name = document.querySelector('.name');
+        const a = document.querySelector('a');
+        const btn = document.querySelector('.btn');
+
+        function choose() {
+            let index = Math.floor(Math.random() * menu.length);
+            photo.src = menu[index].photo;
+            address.textContent = '地址:' + menu[index].address;
+            name.textContent = menu[index].name;
+            a.href = menu[index].web;
+            a.target = '_blank';
+            a.textContent = '官網';
+            btn.style.display = 'none';
+            box.style.display = 'block';
+        }
+
+        function retry() {
+            btn.style.display = 'block';
+            box.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
