@@ -45,6 +45,7 @@
 </head>
 
 <body>
+    <a href="/drink.html">飲料版</a>
     <div class="container">
         <button class="btn" onclick="choose()">今天吃什麼</button>
         <div class="box">
@@ -61,7 +62,7 @@
     <script type="text/javascript">
         //運動事件監聽
         if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', deviceMotionHandler);
+            window.addEventListener('devicemotion', deviceMotionHandler, false);
         }
 
         //獲取加速度資訊
@@ -144,7 +145,20 @@
                 web: '',
                 photo: '',
                 address: '武昌街一段'
-            }
+            },
+            {
+                name: '築地鮮魚',
+                web: 'https://h294799.pixnet.net/blog/post/400976734-%5B%E5%8F%B0%E5%8C%97%E8%BB%8A%E7%AB%99%5D-%E7%AF%89%E5%9C%B0%E9%AE%AE%E9%AD%9A%EF%BC%8C%E4%BE%BF%E5%AE%9C%E5%8F%88%E5%A4%A7%E7%A2%97%E7%9A%84%E7%94%9F%E9%AD%9A%E7%89%87%E4%B8%BC',
+                photo: 'https://pic.pimg.tw/h294799/1417686121-2620168292_n.jpg',
+                address: '台北市中正區重慶南路一段47號'
+            },
+            {
+            name: '餃匠',
+            web:
+            'https://h294799.pixnet.net/blog/post/400976734-%5B%E5%8F%B0%E5%8C%97%E8%BB%8A%E7%AB%99%5D-%E7%AF%89%E5%9C%B0%E9%AE%AE%E9%AD%9A%EF%BC%8C%E4%BE%BF%E5%AE%9C%E5%8F%88%E5%A4%A7%E7%A2%97%E7%9A%84%E7%94%9F%E9%AD%9A%E7%89%87%E4%B8%BC',
+            photo: 'https://pic.pimg.tw/ctionkuni/1604204775-929342027-g.jpg',
+            address: '台北市中正區南陽街19號'
+            },
         ]
         const photo = document.querySelector('.photo');
         const address = document.querySelector('.address');
